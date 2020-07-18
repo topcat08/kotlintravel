@@ -167,7 +167,15 @@
                                         <TableColumn fx:id="yearsColumn" editable="false" prefWidth="75.0" text="Frequency-1"/>
                                         <TableColumn fx:id="occupationColumn" editable="false" prefWidth="75.0" text="Keyword-2"/>
                                         <TableColumn fx:id="birthColumn" editable="false" prefWidth="75.0" text="Frequency-2"/>
-                                    </columns>
+                                       <TableColumn fx:id="nameColumn2" editable="false" prefWidth="75.0" text="Keyword-3"/>
+                                        <TableColumn fx:id="yearsColumn2" editable="false" prefWidth="75.0" text="Frequency-3"/>
+                                        <TableColumn fx:id="occupationColumn2" editable="false" prefWidth="75.0" text="Keyword-4"/>
+                                        <TableColumn fx:id="birthColumn2" editable="false" prefWidth="75.0" text="Frequency-4"/>
+                                      
+
+
+                                      </columns>
+
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
