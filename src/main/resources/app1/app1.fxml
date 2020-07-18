@@ -31,12 +31,12 @@
                                         <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" valignment="CENTER" vgrow="NEVER"/>
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Build a URL" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+                                        <Label text="Connectivity settings" GridPane.columnSpan="3" GridPane.halignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="14.0"/>
                                             </font>
                                         </Label>
-                                        <Label text="Scheme" GridPane.rowIndex="1"/>
+                                        <Label text="Line" GridPane.rowIndex="1"/>
                                         <Label text="Host" GridPane.rowIndex="2"/>
                                         <Label text="Port" GridPane.rowIndex="3"/>
                                         <ComboBox id="schemeCombo" fx:id="schemeCombo" prefWidth="150.0" visibleRowCount="3" GridPane.columnIndex="1"
@@ -49,12 +49,6 @@
                                         </TextField>
                                         <TextField id="portField" fx:id="portField" maxWidth="70.0" minWidth="70.0" prefWidth="70.0"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                        <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" text="Generated URL" GridPane.columnIndex="1"
-                                               GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-                                            <padding>
-                                                <Insets bottom="4.0"/>
-                                            </padding>
-                                        </Label>
                                         <Label id="urlLabel" fx:id="urlLabel" maxWidth="1.7976931348623157E308" minHeight="30.0"
                                                styleClass="sunken-label" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                GridPane.rowIndex="6" GridPane.valignment="CENTER">
@@ -63,7 +57,7 @@
                                             </GridPane.margin>
                                         </Label>
                                         <Button id="generateUrlButton" fx:id="generateUrlButton" mnemonicParsing="false"
-                                                onAction="#generateUrlClicked" text="Generate URL" GridPane.columnIndex="2"
+                                                onAction="#generateUrlClicked" text="Connect to base" GridPane.columnIndex="2"
                                                 GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                                             <GridPane.margin>
                                                 <Insets right="8.0"/>
@@ -191,7 +185,7 @@
             <children>
                 <Button id="closeButton" layoutX="314.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeApplication" text="Close"
                         AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="12.0"/>
-                <Button mnemonicParsing="false" onAction="#addPerson" text="Add Person" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+                <Button mnemonicParsing="false" onAction="#addPerson" text="Add keyword" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
                 <Button mnemonicParsing="false" onAction="#clearPeople" text="Clear List" AnchorPane.bottomAnchor="10.0"
                         AnchorPane.leftAnchor="120.0"/>
             </children>
