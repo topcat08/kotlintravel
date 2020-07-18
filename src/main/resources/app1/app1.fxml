@@ -69,7 +69,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab id="listTab" fx:id="listTab" text="List">
+                <Tab id="listTab" fx:id="listTab" text="Colors List">
                     <content>
                         <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
                                   prefWidth="400.0">
@@ -119,7 +119,7 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <Tab id="basicTableTab" fx:id="basicTableTab" text="Basic TableView">
+                <Tab id="basicTableTab" fx:id="basicTableTab" text="Categories">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -155,7 +155,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab id="sortedTableTab" fx:id="sortedTableTab" text="Sorted Table View">
+                <Tab id="sortedTableTab" fx:id="sortedTableTab" text="Keyword list">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -163,10 +163,10 @@
                                            prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                            AnchorPane.topAnchor="0.0">
                                     <columns>
-                                        <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Name"/>
-                                        <TableColumn fx:id="yearsColumn" editable="false" prefWidth="75.0" text="Years Lived"/>
-                                        <TableColumn fx:id="occupationColumn" editable="false" prefWidth="75.0" text="Occupation"/>
-                                        <TableColumn fx:id="birthColumn" editable="false" prefWidth="75.0" text="Date of Birth"/>
+                                        <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" text="Keyword-1"/>
+                                        <TableColumn fx:id="yearsColumn" editable="false" prefWidth="75.0" text="Frequency-1"/>
+                                        <TableColumn fx:id="occupationColumn" editable="false" prefWidth="75.0" text="Keyword-2"/>
+                                        <TableColumn fx:id="birthColumn" editable="false" prefWidth="75.0" text="Frequency-2"/>
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
