@@ -69,9 +69,9 @@ class Controller {
     */
    @FXML
    fun initialize() {
-      initializeListTab()
-      initializeTableTab()
-      initializeFieldTab()
+    //  initializeListTab()
+   //   initializeTableTab()
+    //  initializeFieldTab()
       initializeSortedTableTab()
    }
 

@@ -10,7 +10,7 @@
     <children>
         <TabPane maxHeight="1.7976931348623157E308" prefWidth="590.0" VBox.vgrow="ALWAYS">
             <tabs>
-              <Tab id="fieldTab" fx:id="fieldTab" text="Choose a keyword phase">
+                <Tab id="fieldTab" fx:id="fieldTab" text="Fields">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
