@@ -1,19 +1,6 @@
 /*
- * Copyright 2019 Serge Merzliakov
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2020 Spineci Cosmin-Mugurel
  */
-
 package org.epistatic.app1.controller
 
 import javafx.collections.FXCollections
@@ -26,13 +13,13 @@ import org.epistatic.app1.model.SomeProperty
 import java.time.LocalDateTime
 import kotlin.random.Random
 
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.transaction
+
 /**
  * Initialized By JavaFX Loader when loading the FXML document.
- *
  * fx:controller attribute in the FXML document maps a "controller" class with an FXML document.
- *
  * A controller is a compiled class that implements the "code behind" the object hierarchy defined by the document.
- *
  * Note: This controller currently manages three Tab Panes, and ideally this should probably be split up
  * into a controller for each logical section of the application.
  */
@@ -64,20 +51,29 @@ class Controller {
    val listModel = FXCollections.observableArrayList<String>()
    val tableModel = FXCollections.observableArrayList<SomeProperty>()
 
+object Fruits : Table("KeywordExpanded") {
+    val id = integer("idKeywordExpanded").primaryKey()
+    val name = varchar("keyword_1", length =56)
+    val value = varchar("frequency_1", length =55)
+}
+
+data class Fruit(val id: Int, val name: String, val value: String)
+
+
    /**
     * Called after JavaFX initialized and document loaded
     */
    @FXML
    fun initialize() {
-    //  initializeListTab()
-   //   initializeTableTab()
-    //  initializeFieldTab()
+      initializeListTab()
+      initializeTableTab()
+      initializeFieldTab()
       initializeSortedTableTab()
-   }
+      hostField.text = "45.56.72.19"
+    //  var password = "TravelSourceLLC"
+      portField.text = "3306"
+  }
 
-   /**
-    * Setup model for listView
-    */
    private fun initializeListTab() {
       // Preload some data into listModel, which is then loaded into list via observable property magic
       listModel.add("Lion")
@@ -114,8 +110,15 @@ class Controller {
       schemeCombo.selectionModel.select(0)
    }
 
+   fun initDB() { 
+   
+   val url = "jdbc:mysql://root:new-password@localhost:3306/TravelSource?useUnicode=true&serverTimezone=UTC"
+   val driver = "com.mysql.cj.jdbc.Driver"
+     Database.connect(url,driver)
+    }
+   
+   
    private fun initializeSortedTableTab() {
-
       nameColumn.cellValueFactory = PropertyValueFactory<FamousPerson, String>("name")
       occupationColumn.cellValueFactory = PropertyValueFactory<FamousPerson, String>("occupation")
       yearsColumn.cellValueFactory = PropertyValueFactory<FamousPerson, Int>("yearsLived")
@@ -124,16 +127,31 @@ class Controller {
       // setup date of birth column as the single sort column for the table and sort in descending date order
       birthColumn.comparator = Comparator.reverseOrder()
       historicalView.sortOrder.addAll(birthColumn)
-      val sortedList = famousPersonModel.sorted()
+    val sortedList = famousPersonModel.sorted()
       sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
       historicalView.items = sortedList
 
-      famousPersonModel.add(FamousPerson("Wolfgang Amadeus Mozart", 36, "Composer", LocalDateTime.of(1756, 1, 27, 0, 0, 0)))
-      famousPersonModel.add(FamousPerson("Pablo Picasso", 91, "Artist", LocalDateTime.of(1881, 10, 25, 0, 0, 0)))
-      famousPersonModel.add(FamousPerson("Genghis Khan", 65, "Conqueror", LocalDateTime.of(1162, 1, 1, 0, 0, 0)))
-   }
 
-   /**
+      initDB()
+    transaction {
+      val res = Fruits.selectAll().orderBy(Fruits.id, false).limit(5)
+      val c = ArrayList<Fruit>()
+      for (f in res) {
+      c.add(Fruit(id = f[Fruits.id], name = f[Fruits.name], value = f[Fruits.value]))
+ 
+famousPersonModel.add(FamousPerson( f[Fruits.name], 91, "Artist", LocalDateTime.of(1881, 10, 25, 0, 0, 0)))
+ 
+        print(c)          
+   }
+    }
+     
+  //  initDB()   
+    
+    }
+
+
+
+/**
     * Just add a person at random to demonstrate sorting by birth date
     */
    @FXML
@@ -141,15 +159,15 @@ class Controller {
       val occupations = arrayListOf("Artist", "Businessman", "Composer", "Scientist", "Soldier", "Statesman")
       val names = arrayListOf("Andrew", "Amy", "John", "Mary", "Michael", "Nina", "Patrick", "Stephen", "Zane")
       val surnames = arrayListOf("Bohr", "Chadwick", "Dirac", "Erdos", "Einstein", "Mann", "Starr", "Sommerfeld", "Wolfram")
-      val age = Random.nextInt(19, 100)
+      val age = Random.nextInt(122,100)
       val year = Random.nextInt(1200, 1900)
       val month = Random.nextInt(1, 12)
       val day = Random.nextInt(1, 28)
       val name = names[Random.nextInt(names.size - 1)]
-      val lastName = surnames[Random.nextInt(surnames.size - 1)]
-      val occupation = occupations[Random.nextInt(occupations.size - 1)]
+      val lastName =""// surnames[Random.nextInt(surnames.size - 1)]
+      val occupation = ""//occupations[Random.nextInt(occupations.size - 1)]
 
-      famousPersonModel.add(FamousPerson("$name $lastName", age, occupation, LocalDateTime.of(year, month, day, 0, 0, 0)))
+      famousPersonModel.add(FamousPerson(lastName, age, occupation, LocalDateTime.of(year, month, day, 0, 0, 0)))
    }
 
    @FXML
@@ -184,7 +202,6 @@ class Controller {
    fun generateUrlClicked() {
       val scheme = schemeCombo.selectionModel.selectedItem
       val host = hostField.text.trim()
-
       // Cheating here - no real integer validation -
       // just default to 80 if integer conversion fails
       val port = portField.text.trim().toIntOrNull() ?: 80

@@ -10,7 +10,8 @@ def JAVA_HOME = System.properties['java.home']
 def JFX_VERSION = "14"
 def JFX_INSTALL ="/usr/local/javafx-sdk-14.0.1" 
 // END YOUR SETUP
-
+    ext.kotlin_version = '1.1.4-3'
+    ext.ktor_version = '0.4.0'
 group 'org.epistatic'
 version '2.2.1'
 
@@ -18,9 +19,14 @@ repositories {
     mavenCentral()
     jcenter()
     flatDir {
-        dirs "${JFX_INSTALL}/lib"
+          dirs "${JFX_INSTALL}/lib"
+
     }
+  maven { url "http://dl.bintray.com/kotlin/ktor" }
+      maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+          maven { url "https://dl.bintray.com/kotlin/exposed" }
 }
+
 
 apply plugin: 'application'
 mainClassName = 'org.epistatic.app1.Main'
@@ -31,9 +37,19 @@ javafx {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "com.google.guava:guava:27.1-jre"
+    
 
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+  compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+  compile "org.jetbrains.kotlinx:kotlinx-html-jvm:0.6.4"
+  compile 'org.jetbrains.exposed:exposed:0.8.5'
+  compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+  compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+  compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
+
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "com.google.guava:guava:27.1-jre"
+//    compile (name: 'mysql-connector-java-5.1.49', ext:'jar')
     testCompile "org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VERSION"
     testCompile "org.assertj:assertj-core:3.11.1"
     testCompile "org.testfx:testfx-core:4.0.16-alpha"

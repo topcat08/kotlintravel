@@ -27,7 +27,7 @@ class Main : Application() {
    @Throws(Exception::class)
    override fun start(primaryStage: Stage) {
       val root = FXMLLoader.load<Parent>(javaClass.getResource("/app1/app1.fxml"))
-      primaryStage.title = "JavaFx Kotlin 101"
+      primaryStage.title = "Keyword tool for TravelSource LLC [(c)2020]"
       primaryStage.scene = Scene(root)
       primaryStage.show()
    }
