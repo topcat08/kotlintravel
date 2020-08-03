@@ -12,54 +12,65 @@ import org.epistatic.app1.model.FamousPerson
 import org.epistatic.app1.model.SomeProperty
 import java.time.LocalDateTime
 import kotlin.random.Random
-
+//import javafx.scene.input.ScrollEvent
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-/**
- * Initialized By JavaFX Loader when loading the FXML document.
- * fx:controller attribute in the FXML document maps a "controller" class with an FXML document.
- * A controller is a compiled class that implements the "code behind" the object hierarchy defined by the document.
- * Note: This controller currently manages three Tab Panes, and ideally this should probably be split up
- * into a controller for each logical section of the application.
- */
 class Controller {
-
    // List Tab Controls
    @FXML lateinit var itemListView: ListView<String>
    @FXML lateinit var newItemField: TextField
-
    // Table Tab Controls
    @FXML lateinit var tableView: TableView<SomeProperty>
    @FXML lateinit var propertyColumn: TableColumn<SomeProperty, String>
    @FXML lateinit var valueColumn: TableColumn<SomeProperty, String>
+   
 
-   // Field Tab Controls
+
+// Field Tab Controls
    @FXML lateinit var schemeCombo: ComboBox<String>
    @FXML lateinit var hostField: TextField
    @FXML lateinit var portField: TextField
    @FXML lateinit var generateUrlButton: Button
    @FXML lateinit var urlLabel: Label
-
+  //			CATEGORIES VIEW
+  @FXML lateinit var categoryView: TableView<SomeProperty>
+  @FXML lateinit var category: TableColumn<SomeProperty,String>
+  //keyword table
+	//for the last KEYWORD VIEW 
    @FXML lateinit var historicalView: TableView<FamousPerson>
-   @FXML lateinit var nameColumn: TableColumn<FamousPerson, String>
-   @FXML lateinit var yearsColumn: TableColumn<FamousPerson, Int>
-   @FXML lateinit var occupationColumn: TableColumn<FamousPerson, String>
-   @FXML lateinit var birthColumn: TableColumn<FamousPerson, LocalDateTime>
+   @FXML lateinit var keyword_1: TableColumn<FamousPerson, String>
+   @FXML lateinit var frequency_1: TableColumn<FamousPerson,String>
+   @FXML lateinit var keyword_2: TableColumn<FamousPerson, String>
+   @FXML lateinit var frequency_2: TableColumn<FamousPerson, String>
+   
+   @FXML lateinit var keyword_3: TableColumn<FamousPerson, String>
+   @FXML lateinit var frequency_3: TableColumn<FamousPerson, String>
+   @FXML lateinit var keyword_4: TableColumn<FamousPerson, String>
+   @FXML lateinit var frequency_4: TableColumn<FamousPerson, String>
 
    val famousPersonModel = FXCollections.observableArrayList<FamousPerson>()
    val listModel = FXCollections.observableArrayList<String>()
    val tableModel = FXCollections.observableArrayList<SomeProperty>()
+   val categoryListModel = FXCollections.observableArrayList<SomeProperty>()
 
 object Fruits : Table("KeywordExpanded") {
     val id = integer("idKeywordExpanded").primaryKey()
-    val name = varchar("keyword_1", length =56)
-    val value = varchar("frequency_1", length =55)
-}
+    val m_Keyword_1 = varchar("keyword_1", length =56)
+    val m_Frequency_1 = varchar("frequency_1", length =55)
+    val m_Keyword_2 = varchar("keyword_2", length =56)
+    val m_Frequency_2 = varchar("frequency_2", length =55)
+    val m_Keyword_3 = varchar("keyword_3", length =56)
+    val m_Frequency_3 = varchar("frequency_3", length =55)
+    val m_Keyword_4 = varchar("keyword_4", length =56)
+    val m_Frequency_4 = varchar("frequency_4", length =55) 
+  }
 
-data class Fruit(val id: Int, val name: String, val value: String)
 
-
+//data class Statistica(val id: Int)
+data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
+      val m_Keyword_2: String, val m_Frequency_2: String, val m_Keyword_3: String,
+      val m_Frequency_3: String, val m_Keyword_4: String, val m_Frequency_4: String)
    /**
     * Called after JavaFX initialized and document loaded
     */
@@ -73,17 +84,28 @@ data class Fruit(val id: Int, val name: String, val value: String)
     //  var password = "TravelSourceLLC"
       portField.text = "3306"
   }
-
    private fun initializeListTab() {
       // Preload some data into listModel, which is then loaded into list via observable property magic
       listModel.add("Lion")
       listModel.add("Bear")
       listModel.add("Giraffe")
-
       // items are sorted in view
-      itemListView.items = listModel.sorted()
-   }
-
+      listModel.add("Giraffe")
+      // items are sorted in view
+      listModel.add("Bear")
+      listModel.add("Giraffe")
+      // items are sorted in view
+      portField.text = "3306"
+  }
+  // private fun initializeListTab() {
+   //   // Preload some data into listModel, which is then loaded into list via observable property magic
+  //    listModel.add("Lion")
+   //   listModel.add("Bear")
+    //  listModel.add("Giraffe")
+      // items are sorted in view
+      // items are sorted in view
+  //    itemListView.items = listModel.sorted()
+  // }
    /**
     * Setup model for tableview
     */
@@ -93,61 +115,60 @@ data class Fruit(val id: Int, val name: String, val value: String)
       tableModel.add(SomeProperty("gender", "female"))
       tableModel.add(SomeProperty("age", "40"))
       tableModel.add(SomeProperty("city", "Sydney"))
-
       // items are sorted on property name in view
       tableView.items = tableModel.sorted()
-
       // map column cell value by simple property lookup by name on SomeProperty type
-      propertyColumn.cellValueFactory = PropertyValueFactory<SomeProperty, String>("name")
-      valueColumn.cellValueFactory = PropertyValueFactory<SomeProperty, String>("value")
+      //!-- to change propertyColumn.cellValueFactory = PropertyValueFactory<SomeProperty, String>("name")
+ //to change to normal values   
+   //  hashtag.cellValueFactory = PropertyValueFactory<SomeProperty, String>("hashtag")
+   //  category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("category")
+   //  keyword.cellValueFactory = PropertyValueFactory<SomeProperty, String>("keyword")
+   //  hex.cellValueFactory = PropertyValueFactory<SomeProperty, String>("hex")
+   //  textHex.cellValueFactory = PropertyValueFactory<SomeProperty, String>("textHex")
+    // matchType.cellValueFactory = PropertyValueFactory<SomeProperty, String>("matchType")
+
    }
-
-
    private fun initializeFieldTab() {
       // fixed list so just use Strings here
       schemeCombo.items.add("http")
       schemeCombo.items.add("https")
       schemeCombo.selectionModel.select(0)
    }
-
    fun initDB() { 
-   
    val url = "jdbc:mysql://root:new-password@localhost:3306/TravelSource?useUnicode=true&serverTimezone=UTC"
    val driver = "com.mysql.cj.jdbc.Driver"
      Database.connect(url,driver)
     }
-   
-   
+ 
    private fun initializeSortedTableTab() {
-      nameColumn.cellValueFactory = PropertyValueFactory<FamousPerson, String>("name")
-      occupationColumn.cellValueFactory = PropertyValueFactory<FamousPerson, String>("occupation")
-      yearsColumn.cellValueFactory = PropertyValueFactory<FamousPerson, Int>("yearsLived")
-      birthColumn.cellValueFactory = PropertyValueFactory<FamousPerson, LocalDateTime>("birthDate")
+      keyword_1.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_1")
+      keyword_2.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_2")
+      frequency_1.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_1")
+      frequency_2.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_2")   
 
-      // setup date of birth column as the single sort column for the table and sort in descending date order
-      birthColumn.comparator = Comparator.reverseOrder()
-      historicalView.sortOrder.addAll(birthColumn)
-    val sortedList = famousPersonModel.sorted()
-      sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
-      historicalView.items = sortedList
-
-
-      initDB()
+      keyword_3.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_3")
+      keyword_4.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_4")
+      frequency_3.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_3")
+      frequency_4.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_4")
+   val sortedList = famousPersonModel.sorted()
+    sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
+    historicalView.items = sortedList
+    var sortedCategoriesList = categoryListModel.sorted()
+    sortedCategoriesList.comparatorProperty().bind(categoryView.comparatorProperty())
+    categoryView.items = sortedCategoriesList
+       initDB()
     transaction {
-      val res = Fruits.selectAll().orderBy(Fruits.id, false).limit(5)
-      val c = ArrayList<Fruit>()
-      for (f in res) {
-      c.add(Fruit(id = f[Fruits.id], name = f[Fruits.name], value = f[Fruits.value]))
- 
-famousPersonModel.add(FamousPerson( f[Fruits.name], 91, "Artist", LocalDateTime.of(1881, 10, 25, 0, 0, 0)))
- 
-        print(c)          
-   }
+    exec("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Statistica'") { 
+        rs -> while(rs.next()) {
+         categoryListModel.add(SomeProperty(rs.getString(4),rs.getString(4)))
+     category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("value")
+        }
+      }
     }
-     
-  //  initDB()   
-    
-    }
+      famousPersonModel.add(FamousPerson(f[Fruits.m_Keyword_1], f[Fruits.m_Frequency_1], f[Fruits.m_Keyword_2], f[Fruits.m_Frequency_2], f[Fruits.m_Keyword_3], f[Fruits.m_Frequency_3], f[Fruits.m_Keyword_4], f[Fruits.m_Frequency_4]))         
+     }
+   }  
+  }
 
 
 
@@ -156,18 +177,7 @@ famousPersonModel.add(FamousPerson( f[Fruits.name], 91, "Artist", LocalDateTime.
     */
    @FXML
    fun addPerson() {
-      val occupations = arrayListOf("Artist", "Businessman", "Composer", "Scientist", "Soldier", "Statesman")
-      val names = arrayListOf("Andrew", "Amy", "John", "Mary", "Michael", "Nina", "Patrick", "Stephen", "Zane")
-      val surnames = arrayListOf("Bohr", "Chadwick", "Dirac", "Erdos", "Einstein", "Mann", "Starr", "Sommerfeld", "Wolfram")
-      val age = Random.nextInt(122,100)
-      val year = Random.nextInt(1200, 1900)
-      val month = Random.nextInt(1, 12)
-      val day = Random.nextInt(1, 28)
-      val name = names[Random.nextInt(names.size - 1)]
-      val lastName =""// surnames[Random.nextInt(surnames.size - 1)]
-      val occupation = ""//occupations[Random.nextInt(occupations.size - 1)]
-
-      famousPersonModel.add(FamousPerson(lastName, age, occupation, LocalDateTime.of(year, month, day, 0, 0, 0)))
+      famousPersonModel.add(FamousPerson("key1","f1","key2","f2","key3","f3","key4","f4"))
    }
 
    @FXML

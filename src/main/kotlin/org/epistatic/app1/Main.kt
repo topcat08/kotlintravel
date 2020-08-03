@@ -30,13 +30,15 @@ class Main : Application() {
       primaryStage.title = "Keyword tool for TravelSource LLC [(c)2020]"
       primaryStage.scene = Scene(root)
       primaryStage.show()
+		
    }
 
    companion object {
       @JvmStatic
       fun main(args: Array<String>) {
          launch(Main::class.java, *args)
-      }
+	   
+   }
    }
 }
 
