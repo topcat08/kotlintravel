@@ -183,14 +183,14 @@
                                        <children>
                                                   <TableView id="historicalView" fx:id="historicalView" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                                                       <columns>
-                                                          <TableColumn fx:id="keyword_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Keyword-1" />
-                                                          <TableColumn fx:id="frequency_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Frequency-1" />
-                                                          <TableColumn fx:id="keyword_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-2" />
-                                                          <TableColumn fx:id="frequency_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-2" />
-                                                         <TableColumn fx:id="keyword_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-3" />
-                                                          <TableColumn fx:id="frequency_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-3" />
-                                                          <TableColumn fx:id="keyword_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-4" />
-                                                          <TableColumn fx:id="frequency_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-4" />
+                                                          <TableColumn id="keyword_1" fx:id="keyword_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Keyword-1" />
+                                                          <TableColumn id="frequency_1" fx:id="frequency_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Frequency-1" />
+                                                          <TableColumn id="keyword_2" fx:id="keyword_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-2" />
+                                                          <TableColumn id="frequency_2" fx:id="frequency_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-2" />
+                                                         <TableColumn id="keyword_3" fx:id="keyword_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-3" />
+                                                          <TableColumn id="frequency_3" fx:id="frequency_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-3" />
+                                                          <TableColumn  fx:id="keyword_4" id="keyword_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-4" />
+                                                          <TableColumn id="frequency_4" fx:id="frequency_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-4" />
                                                         
                         
                         
@@ -222,8 +222,8 @@
         <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" prefWidth="602.0" VBox.vgrow="NEVER">
             <children>
                 <Button id="closeButton" layoutX="314.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeApplication" text="Close" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="12.0" />
-                <Button mnemonicParsing="false" onAction="#addPerson" text="Add keyword" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                <Button mnemonicParsing="false" onAction="#clearPeople" text="Clear List" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" />
+                <Button mnemonicParsing="false"  text="Add keyword" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                <Button mnemonicParsing="false"  text="Clear List" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" />
             </children>
         </AnchorPane>
     </children>

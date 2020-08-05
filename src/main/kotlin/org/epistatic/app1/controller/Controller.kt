@@ -24,9 +24,6 @@ class Controller {
    @FXML lateinit var tableView: TableView<SomeProperty>
    @FXML lateinit var propertyColumn: TableColumn<SomeProperty, String>
    @FXML lateinit var valueColumn: TableColumn<SomeProperty, String>
-   
-
-
 // Field Tab Controls
    @FXML lateinit var schemeCombo: ComboBox<String>
    @FXML lateinit var hostField: TextField
@@ -38,40 +35,25 @@ class Controller {
   @FXML lateinit var category: TableColumn<SomeProperty,String>
   //keyword table
 	//for the last KEYWORD VIEW 
-   @FXML lateinit var historicalView: TableView<FamousPerson>
-   @FXML lateinit var keyword_1: TableColumn<FamousPerson, String>
-   @FXML lateinit var frequency_1: TableColumn<FamousPerson,String>
-   @FXML lateinit var keyword_2: TableColumn<FamousPerson, String>
-   @FXML lateinit var frequency_2: TableColumn<FamousPerson, String>
+//   @FXML lateinit var historicalView: TableView<MFamousPerson>
+//   @FXML lateinit var keyword_1: TableColumn<Keys, String>
+ //  @FXML lateinit var frequency_1: TableColumn<Keys,String>
+  // @FXML lateinit var keyword_2: TableColumn<Keys, String>
+//   @FXML lateinit var frequency_2: TableColumn<Keys, String>
    
-   @FXML lateinit var keyword_3: TableColumn<FamousPerson, String>
-   @FXML lateinit var frequency_3: TableColumn<FamousPerson, String>
-   @FXML lateinit var keyword_4: TableColumn<FamousPerson, String>
-   @FXML lateinit var frequency_4: TableColumn<FamousPerson, String>
+//  @FXML lateinit var keyword_3: TableColumn<Keys, String>
+//   @FXML lateinit var frequency_3: TableColumn<Keys, String>
+//   @FXML lateinit var keyword_4: TableColumn<Keys, String>
+//   @FXML lateinit var frequency_4: TableColumn<Keys, String>
 
-   val famousPersonModel = FXCollections.observableArrayList<FamousPerson>()
+   val keysModel = FXCollections.observableArrayList<SomeProperty>()
    val listModel = FXCollections.observableArrayList<String>()
    val tableModel = FXCollections.observableArrayList<SomeProperty>()
    val categoryListModel = FXCollections.observableArrayList<SomeProperty>()
 
-object Fruits : Table("KeywordExpanded") {
-    val id = integer("idKeywordExpanded").primaryKey()
-    val m_Keyword_1 = varchar("keyword_1", length =56)
-    val m_Frequency_1 = varchar("frequency_1", length =55)
-    val m_Keyword_2 = varchar("keyword_2", length =56)
-    val m_Frequency_2 = varchar("frequency_2", length =55)
-    val m_Keyword_3 = varchar("keyword_3", length =56)
-    val m_Frequency_3 = varchar("frequency_3", length =55)
-    val m_Keyword_4 = varchar("keyword_4", length =56)
-    val m_Frequency_4 = varchar("frequency_4", length =55) 
-  }
-
 
 //data class Statistica(val id: Int)
-data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
-      val m_Keyword_2: String, val m_Frequency_2: String, val m_Keyword_3: String,
-      val m_Frequency_3: String, val m_Keyword_4: String, val m_Frequency_4: String)
-   /**
+  /**
     * Called after JavaFX initialized and document loaded
     */
    @FXML
@@ -118,16 +100,20 @@ data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
       // items are sorted on property name in view
       tableView.items = tableModel.sorted()
       // map column cell value by simple property lookup by name on SomeProperty type
-      //!-- to change propertyColumn.cellValueFactory = PropertyValueFactory<SomeProperty, String>("name")
- //to change to normal values   
-   //  hashtag.cellValueFactory = PropertyValueFactory<SomeProperty, String>("hashtag")
-   //  category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("category")
-   //  keyword.cellValueFactory = PropertyValueFactory<SomeProperty, String>("keyword")
-   //  hex.cellValueFactory = PropertyValueFactory<SomeProperty, String>("hex")
-   //  textHex.cellValueFactory = PropertyValueFactory<SomeProperty, String>("textHex")
-    // matchType.cellValueFactory = PropertyValueFactory<SomeProperty, String>("matchType")
+      }
 
-   }
+	@FXML lateinit var historicalView: TableView<MFamousPerson>
+	@FXML lateinit var keyword_1: TableColumn<MFamousPerson, String>
+	@FXML lateinit var keyword_2: TableColumn<MFamousPerson, String>
+	@FXML lateinit var keyword_3: TableColumn<MFamousPerson, String>
+	@FXML lateinit var keyword_4: TableColumn<MFamousPerson, String>
+	@FXML lateinit var frequency_1: TableColumn<MFamousPerson, String>
+	@FXML lateinit var frequency_2: TableColumn<MFamousPerson, String>
+	@FXML lateinit var frequency_3: TableColumn<MFamousPerson, String>
+	@FXML lateinit var frequency_4: TableColumn<MFamousPerson, String>
+
+
+
    private fun initializeFieldTab() {
       // fixed list so just use Strings here
       schemeCombo.items.add("http")
@@ -140,19 +126,22 @@ data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
      Database.connect(url,driver)
     }
  
-   private fun initializeSortedTableTab() {
-      keyword_1.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_1")
-      keyword_2.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_2")
-      frequency_1.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_1")
-      frequency_2.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_2")   
 
-      keyword_3.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_3")
-      keyword_4.cellValueFactory = PropertyValueFactory<FamousPerson, String>("keyword_4")
-      frequency_3.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_3")
-      frequency_4.cellValueFactory = PropertyValueFactory<FamousPerson, String>("frequency_4")
-   val sortedList = famousPersonModel.sorted()
-    sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
-    historicalView.items = sortedList
+ class MFamousPerson(val keyword_1:String, val keyword_2:String, val keyword_3:String, val keyword_4:String, val frequency_1:String, val frequency_2:String, val frequency_3:String, val frequency_4:String)
+
+
+   private fun initializeSortedTableTab() {
+   //   keyword_1.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_1")
+    //  keyword_2.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_2")
+     // frequency_1.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_1")
+   //   frequency_2.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_2")   
+   //   keyword_3.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_3")
+     // keyword_4.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_4")
+    //  frequency_3.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_3")
+   //   frequency_4.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_4")
+  // val sortedList = keysModel.sorted()
+   // sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
+   // historicalView.items = sortedList
     var sortedCategoriesList = categoryListModel.sorted()
     sortedCategoriesList.comparatorProperty().bind(categoryView.comparatorProperty())
     categoryView.items = sortedCategoriesList
@@ -164,26 +153,70 @@ data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
      category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("value")
         }
       }
+}    
+//TableColumn<String> column1 = new TableColumn<>("Keyword 1");
+//column1.setCellValueFactory(new PropertyValueFactory<>("keyword_1"));
+//tableView.getItems().add(new String("John"));
+ 
+
+//KEYWORD SECTION 
+  
+val mFamousPersonModel = FXCollections.observableArrayList<MFamousPerson>()
+ 	frequency_1.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_1")
+	keyword_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_2")
+	frequency_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_2")
+	keyword_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_3")
+	frequency_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_3")
+	keyword_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_4")
+	frequency_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_4")
+ transaction {
+    exec("SELECT * from KeywordExpanded limit 1000000") { 
+        rs -> while(rs.next()) {
+  //       categoryListModel.add(SomeProperty(rs.getString(4),rs.getString(4)))
+//     category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("value")
+// initKeyword(keyword_1.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_1")
+
+	var k1 = rs.getString(1)
+	if (k1 == null) {  k1 ="-"}
+	var f1 = rs.getString(2)
+	if (f1 == null) {  f1 ="-"}
+	var k2 = rs.getString(3)
+	if (k2 == null) {  k2 ="-"}
+	var f2 = rs.getString(4)
+	if (f2 == null) {  f2 ="-"}
+	var k3 = rs.getString(5)
+	if (k3 == null) {  k3 ="-"}
+	var f3 = rs.getString(6)
+	if (f3 == null) {  f3 ="-"}
+	var k4 = rs.getString(7)
+	if (k4 == null) {  k4 ="-"}
+	var f4 = rs.getString(8)
+	if (f4 == null) {  f4 ="-"}
+
+	historicalView.items = mFamousPersonModel
+	mFamousPersonModel.add(MFamousPerson(k1,f1,k2,f2,k3,f3,k4,f4))
+	  }
+	 }
+	}	 	
     }
-      famousPersonModel.add(FamousPerson(f[Fruits.m_Keyword_1], f[Fruits.m_Frequency_1], f[Fruits.m_Keyword_2], f[Fruits.m_Frequency_2], f[Fruits.m_Keyword_3], f[Fruits.m_Frequency_3], f[Fruits.m_Keyword_4], f[Fruits.m_Frequency_4]))         
-     }
-   }  
-  }
+     
+
+
+
+
+
+
+
 
 
 
 /**
     * Just add a person at random to demonstrate sorting by birth date
     */
-   @FXML
-   fun addPerson() {
-      famousPersonModel.add(FamousPerson("key1","f1","key2","f2","key3","f3","key4","f4"))
-   }
-
-   @FXML
-   fun clearPeople() {
-      famousPersonModel.clear()
-   }
+ // @FXML
+  // fun clearPeople() {
+    //  famousPersonModel.clear()
+  // }
 
    @FXML
    fun closeApplication() {
@@ -208,7 +241,8 @@ data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
     * Put the URL together in the urlLabel. No input validation
     * here for the sake of simplicity
     */
-   @FXML
+
+  @FXML
    fun generateUrlClicked() {
       val scheme = schemeCombo.selectionModel.selectedItem
       val host = hostField.text.trim()
@@ -218,4 +252,5 @@ data class Fruit(val id: Int, val m_Keyword_1:String, val m_Frequency_1: String,
 
       urlLabel.text = "$scheme://$host:$port"
    }
+
 }
