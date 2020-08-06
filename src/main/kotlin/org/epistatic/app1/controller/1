@@ -1,12 +1,7 @@
 /*
  * Copyright 2020 Spineci Cosmin-Mugurel
- * Address: EU, Romania, Buzau, Street Unirii, block 6B, 2nd floor, 5th apartment
- * email: cosmin.mugurel.23@outlook.com	
- * Authorised to copy or do whatever you want with the code.
-*/
-
+ */
 package org.epistatic.app1.controller
-
 
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
