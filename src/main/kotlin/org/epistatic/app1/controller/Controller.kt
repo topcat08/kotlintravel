@@ -21,6 +21,15 @@ import kotlin.random.Random
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+
+//import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+//import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
+
 class Controller {
    // List Tab Controls
    @FXML lateinit var itemListView: ListView<String>
@@ -39,25 +48,14 @@ class Controller {
   @FXML lateinit var categoryView: TableView<SomeProperty>
   @FXML lateinit var category: TableColumn<SomeProperty,String>
   //keyword table
-	//for the last KEYWORD VIEW 
-//   @FXML lateinit var historicalView: TableView<MFamousPerson>
-//   @FXML lateinit var keyword_1: TableColumn<Keys, String>
- //  @FXML lateinit var frequency_1: TableColumn<Keys,String>
-  // @FXML lateinit var keyword_2: TableColumn<Keys, String>
-//   @FXML lateinit var frequency_2: TableColumn<Keys, String>
-   
-//  @FXML lateinit var keyword_3: TableColumn<Keys, String>
-//   @FXML lateinit var frequency_3: TableColumn<Keys, String>
-//   @FXML lateinit var keyword_4: TableColumn<Keys, String>
-//   @FXML lateinit var frequency_4: TableColumn<Keys, String>
-
-   val keysModel = FXCollections.observableArrayList<SomeProperty>()
+ @FXML lateinit var filter: TextField
+	   
+val keysModel = FXCollections.observableArrayList<SomeProperty>()
    val listModel = FXCollections.observableArrayList<String>()
    val tableModel = FXCollections.observableArrayList<SomeProperty>()
    val categoryListModel = FXCollections.observableArrayList<SomeProperty>()
 
-
-//data class Statistica(val id: Int)
+//d?ata class Statistica(val id: Int)
   /**
     * Called after JavaFX initialized and document loaded
     */
@@ -84,7 +82,7 @@ class Controller {
       // items are sorted in view
       portField.text = "3306"
   }
-  // private fun initializeListTab() {
+//private fun initializeListTab() {
    //   // Preload some data into listModel, which is then loaded into list via observable property magic
   //    listModel.add("Lion")
    //   listModel.add("Bear")
@@ -116,8 +114,7 @@ class Controller {
 	@FXML lateinit var frequency_2: TableColumn<MFamousPerson, String>
 	@FXML lateinit var frequency_3: TableColumn<MFamousPerson, String>
 	@FXML lateinit var frequency_4: TableColumn<MFamousPerson, String>
-
-
+	val mFamousPersonModel = FXCollections.observableArrayList<MFamousPerson>()
 
    private fun initializeFieldTab() {
       // fixed list so just use Strings here
@@ -130,23 +127,10 @@ class Controller {
    val driver = "com.mysql.cj.jdbc.Driver"
      Database.connect(url,driver)
     }
- 
 
  class MFamousPerson(val keyword_1:String, val keyword_2:String, val keyword_3:String, val keyword_4:String, val frequency_1:String, val frequency_2:String, val frequency_3:String, val frequency_4:String)
 
-
    private fun initializeSortedTableTab() {
-   //   keyword_1.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_1")
-    //  keyword_2.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_2")
-     // frequency_1.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_1")
-   //   frequency_2.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_2")   
-   //   keyword_3.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_3")
-     // keyword_4.cellValueFactory = PropertyValueFactory<Keys, String>("keyword_4")
-    //  frequency_3.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_3")
-   //   frequency_4.cellValueFactory = PropertyValueFactory<Keys, String>("frequency_4")
-  // val sortedList = keysModel.sorted()
-   // sortedList.comparatorProperty().bind(historicalView.comparatorProperty())
-   // historicalView.items = sortedList
     var sortedCategoriesList = categoryListModel.sorted()
     sortedCategoriesList.comparatorProperty().bind(categoryView.comparatorProperty())
     categoryView.items = sortedCategoriesList
@@ -159,28 +143,17 @@ class Controller {
         }
       }
 }    
-//TableColumn<String> column1 = new TableColumn<>("Keyword 1");
-//column1.setCellValueFactory(new PropertyValueFactory<>("keyword_1"));
-//tableView.getItems().add(new String("John"));
- 
-
 //KEYWORD SECTION 
-  
-val mFamousPersonModel = FXCollections.observableArrayList<MFamousPerson>()
- 	frequency_1.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_1")
-	keyword_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_2")
-	frequency_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_2")
-	keyword_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_3")
-	frequency_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_3")
-	keyword_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_4")
-	frequency_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_4")
+frequency_1.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_1")
+keyword_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_2")
+frequency_2.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_2")
+keyword_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_3")
+frequency_3.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_3")
+keyword_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_4")
+frequency_4.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("frequency_4")
  transaction {
-    exec("SELECT * from KeywordExpanded limit 1000000") { 
+    exec("SELECT * from KeywordExpanded limit 10") { 
         rs -> while(rs.next()) {
-  //       categoryListModel.add(SomeProperty(rs.getString(4),rs.getString(4)))
-//     category.cellValueFactory = PropertyValueFactory<SomeProperty, String>("value")
-// initKeyword(keyword_1.cellValueFactory = PropertyValueFactory<MFamousPerson, String>("keyword_1")
-
 	var k1 = rs.getString(1)
 	if (k1 == null) {  k1 ="-"}
 	var f1 = rs.getString(2)
@@ -197,31 +170,44 @@ val mFamousPersonModel = FXCollections.observableArrayList<MFamousPerson>()
 	if (k4 == null) {  k4 ="-"}
 	var f4 = rs.getString(8)
 	if (f4 == null) {  f4 ="-"}
-
 	historicalView.items = mFamousPersonModel
 	mFamousPersonModel.add(MFamousPerson(k1,f1,k2,f2,k3,f3,k4,f4))
 	  }
 	 }
 	}	 	
-    }
+ }
      
+@FXML
+fun filterThisKeyword(){
+print(filter.text)	
+//addTextFilter(mFamousPersonModel,filter,historicalView)
+mFamousPersonModel.clear()
+ transaction {
+    exec("SELECT * from	KeywordExpanded where keyword_1 like %"+filter.text+"% or keyword_2 like %"+filter.text+"% or keyword_3 like %"+filter.text+"% or  keyword_4 like %"+filter.text+"% limit 10") { 
+        rs -> while(rs.next()) {
+	var k1 = rs.getString(1)
+	if (k1 == null) {  k1 ="-"}
+	var f1 = rs.getString(2)
+	if (f1 == null) {  f1 ="-"}
+	var k2 = rs.getString(3)
+	if (k2 == null) {  k2 ="-"}
+	var f2 = rs.getString(4)
+	if (f2 == null) {  f2 ="-"}
+	var k3 = rs.getString(5)
+	if (k3 == null) {  k3 ="-"}
+	var f3 = rs.getString(6)
+	if (f3 == null) {  f3 ="-"}
+	var k4 = rs.getString(7)
+	if (k4 == null) {  k4 ="-"}
+	var f4 = rs.getString(8)
+	if (f4 == null) {  f4 ="-"}
+	historicalView.items = mFamousPersonModel
+	mFamousPersonModel.add(MFamousPerson(k1,f1,k2,f2,k3,f3,k4,f4))
+	  }
+	 }
+	}	 	
+ }
 
-
-
-
-
-
-
-
-
-
-/**
-    * Just add a person at random to demonstrate sorting by birth date
-    */
- // @FXML
-  // fun clearPeople() {
-    //  famousPersonModel.clear()
-  // }
 
    @FXML
    fun closeApplication() {

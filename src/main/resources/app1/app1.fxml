@@ -23,7 +23,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.epistatic.app1.controller.Controller">
     <children>
-        <TabPane maxHeight="1.7976931348623157E308" prefWidth="590.0" VBox.vgrow="ALWAYS">
+        <TabPane maxHeight="1.7976931348623157E308" prefWidth="590.0" tabMaxHeight="768.0" tabMaxWidth="1024.0" VBox.vgrow="ALWAYS">
             <tabs>
               <Tab id="fieldTab" fx:id="fieldTab" text="Choose a keyword phase">
                     <content>
@@ -162,35 +162,35 @@
                 </Tab>
                 <Tab id="sortedTableTab" fx:id="sortedTableTab" text="Keyword list">
                <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="990.0" prefWidth="1600.0">
                             <children>
-                        <Pane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane prefHeight="990.0" prefWidth="1806.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <TextField layoutX="5.0" layoutY="4.0" prefWidth="212.0" />
-                              <TextField layoutX="220.0" layoutY="4.0" prefWidth="531.0" />
-                              <SplitPane dividerPositions="0.12" layoutY="36.0" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1908.0">
+                              <TextField fx:id="filter" layoutX="220.0" layoutY="4.0" onKeyReleased="#filterThisKeyword" prefWidth="531.0" />
+                              <SplitPane dividerPositions="0.1049317943336831" layoutY="36.0" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1804.0">
                                 <items>
-                                  <AnchorPane prefHeight="998.0" prefWidth="412.0">
+                                  <AnchorPane prefHeight="998.0" prefWidth="190.0">
                                        <children>
-                                          <TableView id="categoryView" fx:id="categoryView" prefHeight="950.0" prefWidth="248.0">
+                                          <TableView id="categoryView" fx:id="categoryView" prefHeight="950.0" prefWidth="196.0">
                                             <columns>
-                                              <TableColumn id="category" fx:id="category" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Category" />
+                                              <TableColumn id="category" fx:id="category" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="-1.0" text="Category" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane prefHeight="998.0">
+                                  <AnchorPane prefHeight="998.0" prefWidth="200.0">
                                        <children>
-                                                  <TableView id="historicalView" fx:id="historicalView" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+                                                  <TableView id="historicalView" fx:id="historicalView" layoutX="-4.0" prefHeight="994.0" prefWidth="1711.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="2.0">
                                                       <columns>
-                                                          <TableColumn id="keyword_1" fx:id="keyword_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Keyword-1" />
-                                                          <TableColumn id="frequency_1" fx:id="frequency_1" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="140.0" text="Frequency-1" />
-                                                          <TableColumn id="keyword_2" fx:id="keyword_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-2" />
-                                                          <TableColumn id="frequency_2" fx:id="frequency_2" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-2" />
-                                                         <TableColumn id="keyword_3" fx:id="keyword_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-3" />
-                                                          <TableColumn id="frequency_3" fx:id="frequency_3" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-3" />
-                                                          <TableColumn  fx:id="keyword_4" id="keyword_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Keyword-4" />
-                                                          <TableColumn id="frequency_4" fx:id="frequency_4" editable="false" maxWidth="-1.0" minWidth="170.0" prefWidth="75.0" text="Frequency-4" />
+                                                          <TableColumn id="keyword_1" fx:id="keyword_1" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="75.0" text="Keyword-1" />
+                                                          <TableColumn id="frequency_1" fx:id="frequency_1" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Frequency-1" />
+                                                          <TableColumn id="keyword_2" fx:id="keyword_2" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Keyword-2" />
+                                                          <TableColumn id="frequency_2" fx:id="frequency_2" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Frequency-2" />
+                                                         <TableColumn id="keyword_3" fx:id="keyword_3" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="75.0" text="Keyword-3" />
+                                                          <TableColumn id="frequency_3" fx:id="frequency_3" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="75.0" text="Frequency-3" />
+                                                          <TableColumn id="keyword_4" fx:id="keyword_4" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Keyword-4" />
+                                                          <TableColumn id="frequency_4" fx:id="frequency_4" editable="false" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Frequency-4" />
                                                         
                         
                         
@@ -222,8 +222,8 @@
         <AnchorPane maxHeight="50.0" maxWidth="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" prefWidth="602.0" VBox.vgrow="NEVER">
             <children>
                 <Button id="closeButton" layoutX="314.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeApplication" text="Close" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="12.0" />
-                <Button mnemonicParsing="false"  text="Add keyword" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                <Button mnemonicParsing="false"  text="Clear List" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" />
+                <Button mnemonicParsing="false" text="Add keyword" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                <Button mnemonicParsing="false" text="Clear List" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" />
             </children>
         </AnchorPane>
     </children>
